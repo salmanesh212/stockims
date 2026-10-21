@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Fiche de stock')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: shell(title='Fiche de stock', active='stock', content=~{::section})}">
+<section class="page-content">
+    <div th:if="${succes}" class="alert alert-success" role="status"><span aria-hidden="true">✓</span><span th:text="${succes}"></span></div>
+    <div th:if="${erreurMetier}" class="alert alert-error" role="alert"><span aria-hidden="true">!</span><span th:text="${erreurMetier}"></span></div>
+    <nav class="breadcrumbs" aria-label="Fil d'Ariane"><a th:href="@{/articles}">Articles</a><span>/</span><span>Fiche de stock</span></nav>
+    <div class="page-heading stock-heading"><div><p class="eyebrow">FICHE ARTICLE</p><h1 th:text="${article.designation}">Désignation</h1><p class="lead">Référence <span class="reference-chip" th:text="${article.reference}">REF-001</span></p></div><a class="button button-outline" th:href="@{/articles}">← Retour aux articles</a></div>
+    <div class="stock-summary"><div><p class="eyebrow">STOCK DISPONIBLE</p><div class="stock-number"><span th:text="${stock}">0</span><small>unité(s)</small></div><p class="muted">Calculé à partir des entrées et sorties enregistrées.</p></div><div class="summary-symbol" aria-hidden="true">▦</div></div>
+    <div class="movement-grid">
+        <article class="movement-card movement-entry"><div class="movement-title"><span class="movement-icon">＋</span><div><h2>Entrée de stock</h2><p>Ajoutez des unités à l'inventaire.</p></div></div>
+            <form th:action="@{/stock/{id}/entrees(id=${article.id})}" th:object="${mouvement}" method="post" class="movement-form"><label for="entree-quantite">Quantité à ajouter</label><input id="entree-quantite" type="number" min="1" step="1" inputmode="numeric" th:field="*{quantite}" th:errorclass="input-error" placeholder="Ex. 20" required><p class="field-error" th:if="${mouvementType == 'entree' and #fields.hasErrors('quantite')}" th:errors="*{quantite}"></p><button class="button button-entry" type="submit">Enregistrer l'entrée <span aria-hidden="true">→</span></button></form>
+        </article>
+        <article class="movement-card movement-exit"><div class="movement-title"><span class="movement-icon">−</span><div><h2>Sortie de stock</h2><p>Retirez des unités de l'inventaire.</p></div></div>
+            <form th:action="@{/stock/{id}/sorties(id=${article.id})}" th:object="${mouvement}" method="post" class="movement-form" data-confirm-sortie th:data-article="${article.designation}"><label for="sortie-quantite">Quantité à retirer</label><input id="sortie-quantite" type="number" min="1" step="1" inputmode="numeric" th:field="*{quantite}" th:errorclass="input-error" placeholder="Ex. 5" required><p class="field-error" th:if="${mouvementType == 'sortie' and #fields.hasErrors('quantite')}" th:errors="*{quantite}"></p><button class="button button-exit" type="submit">Enregistrer la sortie <span aria-hidden="true">→</span></button></form>
+        </article>
+    </div>
+</section>
+</div>
+</body>
+</html>

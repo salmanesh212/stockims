@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Accueil')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: shell(title='Bienvenue sur StockIMS', active='accueil', content=~{::section})}">
+<section class="welcome-page">
+    <div class="welcome-panel"><div class="eyebrow"><span class="eyebrow-dot"></span> Gestion d'inventaire</div>
+        <h1>Bienvenue sur <span>StockIMS</span></h1>
+        <p class="lead">Gérez vos articles, suivez vos mouvements et consultez vos stocks en toute simplicité.</p>
+        <a class="button button-primary button-large" th:href="@{/articles}">Accéder aux articles <span aria-hidden="true">→</span></a>
+        <div class="welcome-note"><span class="note-icon">✓</span> Vos mouvements sont enregistrés dans votre base de données.</div>
+    </div>
+    <div class="operation-grid" aria-label="Opérations disponibles">
+        <article class="operation-card"><span class="operation-icon navy">▦</span><div><h2>Référencer</h2><p>Ajoutez les articles de votre inventaire.</p></div></article>
+        <article class="operation-card"><span class="operation-icon green">＋</span><div><h2>Enregistrer une entrée</h2><p>Augmentez le stock d'un article.</p></div></article>
+        <article class="operation-card"><span class="operation-icon red">−</span><div><h2>Enregistrer une sortie</h2><p>Suivez les quantités retirées.</p></div></article>
+        <article class="operation-card"><span class="operation-icon blue">↗</span><div><h2>Consulter le stock</h2><p>Retrouvez le stock calculé à partir des mouvements.</p></div></article>
+    </div>
+</section>
+</div>
+</body>
+</html>

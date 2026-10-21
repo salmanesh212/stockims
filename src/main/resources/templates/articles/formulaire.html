@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Nouvel article')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: shell(title='Nouvel article', active='articles', content=~{::section})}">
+<section class="page-content page-narrow">
+    <nav class="breadcrumbs" aria-label="Fil d'Ariane"><a th:href="@{/articles}">Articles</a><span>/</span><span>Nouvel article</span></nav>
+    <div class="page-heading"><div><p class="eyebrow">CATALOGUE</p><h1>Ajouter un article</h1><p class="lead">Renseignez les informations nécessaires pour référencer un nouvel article.</p></div></div>
+    <div class="form-card"><form th:action="@{/articles}" th:object="${article}" method="post">
+        <div class="field-group"><label for="reference">Référence <span class="required">*</span></label><input id="reference" th:field="*{reference}" maxlength="20" placeholder="Ex. ART-001" autocomplete="off" th:errorclass="input-error" aria-describedby="reference-help reference-error"><div id="reference-help" class="field-hint">20 caractères maximum, unique pour chaque article.</div><p id="reference-error" class="field-error" th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}"></p></div>
+        <div class="field-group"><label for="designation">Désignation <span class="required">*</span></label><input id="designation" th:field="*{designation}" maxlength="80" placeholder="Ex. Carton d'emballage standard" autocomplete="off" th:errorclass="input-error" aria-describedby="designation-error"><p id="designation-error" class="field-error" th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}"></p></div>
+        <div class="form-actions"><a class="button button-quiet" th:href="@{/articles}">Annuler</a><button class="button button-primary" type="submit">Enregistrer l'article <span aria-hidden="true">→</span></button></div>
+    </form></div>
+</section>
+</div>
+</body>
+</html>

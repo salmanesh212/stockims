@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#142B4A">
+        <title th:text="|StockIMS · ${title}|">StockIMS</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+<div th:fragment="shell(title, active, content)" class="app-shell">
+    <div class="mobile-scrim" data-menu-close></div>
+    <aside class="sidebar" id="main-sidebar">
+        <a class="brand" th:href="@{/}" aria-label="StockIMS, accueil"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span><strong>StockIMS</strong><small>GESTION DE STOCK</small></span></a>
+        <div class="nav-label">ESPACE DE TRAVAIL</div>
+        <nav class="side-nav" aria-label="Navigation principale">
+            <a th:href="@{/}" th:classappend="${active == 'accueil'} ? ' active' : ''"><span class="nav-icon">⌂</span><span>Accueil</span></a>
+            <a th:href="@{/articles}" th:classappend="${active == 'articles'} ? ' active' : ''"><span class="nav-icon">▦</span><span>Articles</span></a>
+            <a th:href="@{/articles}" th:classappend="${active == 'stock'} ? ' active' : ''"><span class="nav-icon">↕</span><span>Gestion du stock</span></a>
+        </nav>
+        <a class="sidebar-cta" th:href="@{/articles/nouveau}"><span>＋</span> Nouvel article</a>
+        <div class="sidebar-footer"><span class="footer-mark">S</span><span><strong>StockIMS</strong><small>Application de gestion</small></span></div>
+    </aside>
+    <div class="app-main">
+        <header class="topbar"><button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-sidebar" data-menu-toggle><span></span><span></span><span></span></button><div class="topbar-title"><span class="topbar-kicker">STOCKIMS</span><span th:text="${title}">Page</span></div><a class="topbar-action" th:href="@{/articles}"><span aria-hidden="true">▦</span><span>Inventaire</span></a></header>
+        <main class="main-content" th:replace="${content}"></main>
+        <footer class="app-footer"><span>StockIMS · Gestion de stock</span><span>Suivi simple, inventaire maîtrisé.</span></footer>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Articles')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: shell(title='Gestion des articles', active='articles', content=~{::section})}">
+<section class="page-content">
+    <div class="page-heading"><div><p class="eyebrow">INVENTAIRE</p><h1>Gestion des articles</h1><p class="lead">Retrouvez et gérez les articles de votre inventaire.</p></div><a class="button button-primary" th:href="@{/articles/nouveau}"><span aria-hidden="true">＋</span> Nouvel article</a></div>
+    <div th:if="${succes}" class="alert alert-success" role="status"><span aria-hidden="true">✓</span><span th:text="${succes}"></span></div>
+    <div class="table-card">
+        <div class="table-toolbar"><div><h2>Articles référencés</h2><p th:text="|${#lists.size(articles)} article(s)|">0 article</p></div><label class="search-box"><span aria-hidden="true">⌕</span><span class="visually-hidden">Rechercher un article</span><input id="article-search" type="search" placeholder="Rechercher une référence ou désignation…" autocomplete="off"></label></div>
+        <div class="table-wrap" th:if="${!#lists.isEmpty(articles)}">
+            <table><thead><tr><th>Identifiant</th><th>Référence</th><th>Désignation</th><th>Stock actuel</th><th class="align-right">Action</th></tr></thead>
+                <tbody id="article-rows"><tr class="article-row" th:each="a : ${articles}">
+                    <td class="muted" th:text="|#${a.id}|">#1</td><td><span class="reference-chip" th:text="${a.reference}">REF-001</span></td><td class="strong" th:text="${a.designation}">Article</td>
+                    <td><span class="stock-badge" th:classappend="${stocks[a.id] == 0} ? ' stock-zero' : ' stock-positive'" th:text="${stocks[a.id]}">0</span><span class="stock-caption" th:if="${stocks[a.id] == 0}">Aucun stock</span></td>
+                    <td class="align-right"><a class="button button-small button-outline" th:href="@{/stock/{id}(id=${a.id})}">Voir le stock <span aria-hidden="true">→</span></a></td>
+                </tr></tbody>
+            </table><div id="search-empty" class="inline-empty" hidden><span class="empty-icon">⌕</span><p>Aucun article ne correspond à cette recherche.</p></div>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(articles)}"><span class="empty-icon">▦</span><h3>Aucun article pour le moment</h3><p>Commencez par référencer le premier article de votre inventaire.</p><a class="button button-primary" th:href="@{/articles/nouveau}">Créer le premier article</a></div>
+    </div>
+</section>
+</div>
+</body>
+</html>
