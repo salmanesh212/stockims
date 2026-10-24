@@ -60,14 +60,28 @@ class StockimsApplicationTests {
 		long id = creerArticle("TEST-002", "Validation quantité");
 		mouvement("/stock/" + id + "/entrees", 0, false, "La quantité doit être supérieure ou égale à 1.");
 		mouvement("/stock/" + id + "/entrees", -2, false, "La quantité doit être supérieure ou égale à 1.");
+		mouvement("/stock/" + id + "/sorties", 0, false, "La quantité doit être supérieure ou égale à 1.");
+		mouvement("/stock/" + id + "/sorties", -2, false, "La quantité doit être supérieure ou égale à 1.");
 		mvc.perform(get("/stock/" + id)).andExpect(status().isOk())
 				.andExpect(content().string(containsString(">0</span>")));
 	}
 
 	@Test
+	void gereAuMoinsTroisArticlesDeTest() throws Exception {
+		creerArticle("TEST-003", "Article de test A");
+		creerArticle("TEST-004", "Article de test B");
+		creerArticle("TEST-005", "Article de test C");
+
+		mvc.perform(get("/articles")).andExpect(status().isOk())
+				.andExpect(content().string(containsString("TEST-003")))
+				.andExpect(content().string(containsString("TEST-004")))
+				.andExpect(content().string(containsString("TEST-005")));
+	}
+
+	@Test
 	void valideLesChampsEtLaReferenceUnique() throws Exception {
-		creerArticle("TEST-003", "Article unique");
-		mvc.perform(post("/articles").param("reference", "TEST-003").param("designation", "Doublon"))
+		creerArticle("TEST-006", "Article unique");
+		mvc.perform(post("/articles").param("reference", "TEST-006").param("designation", "Doublon"))
 				.andExpect(status().isOk()).andExpect(view().name("articles/formulaire"))
 				.andExpect(content().string(containsString("Cette référence existe déjà")));
 		mvc.perform(post("/articles").param("reference", "").param("designation", ""))

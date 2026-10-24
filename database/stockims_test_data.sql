@@ -33,13 +33,33 @@ CREATE TABLE IF NOT EXISTS sortie (
 ) ENGINE=InnoDB;
 
 -- Données d'exemple : stock final de DEMO-001 = 20 - 7 = 13.
-INSERT INTO article (reference, designation) VALUES
-    ('DEMO-001', 'Article de démonstration'),
-    ('DEMO-002', 'Article sans mouvement'),
-    ('DEMO-003', 'Article de démonstration complémentaire');
+-- Les INSERT sont idempotents : le script peut être rejoué sans créer de doublons.
+INSERT INTO article (reference, designation)
+SELECT 'DEMO-001', 'Article de démonstration'
+WHERE NOT EXISTS (SELECT 1 FROM article WHERE reference = 'DEMO-001');
+
+INSERT INTO article (reference, designation)
+SELECT 'DEMO-002', 'Article sans mouvement'
+WHERE NOT EXISTS (SELECT 1 FROM article WHERE reference = 'DEMO-002');
+
+INSERT INTO article (reference, designation)
+SELECT 'DEMO-003', 'Article de démonstration complémentaire'
+WHERE NOT EXISTS (SELECT 1 FROM article WHERE reference = 'DEMO-003');
 
 INSERT INTO entree (article_id, quantite, date_mouvement)
-SELECT id, 20, CURRENT_DATE FROM article WHERE reference = 'DEMO-001';
+SELECT id, 20, CURRENT_DATE
+FROM article
+WHERE reference = 'DEMO-001'
+  AND NOT EXISTS (
+      SELECT 1 FROM entree e
+      WHERE e.article_id = article.id AND e.quantite = 20
+  );
 
 INSERT INTO sortie (article_id, quantite, date_mouvement)
-SELECT id, 7, CURRENT_DATE FROM article WHERE reference = 'DEMO-001';
+SELECT id, 7, CURRENT_DATE
+FROM article
+WHERE reference = 'DEMO-001'
+  AND NOT EXISTS (
+      SELECT 1 FROM sortie s
+      WHERE s.article_id = article.id AND s.quantite = 7
+  );

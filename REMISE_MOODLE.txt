@@ -1,11 +1,17 @@
 StockIMS — Projet de gestion de stock
 
-Étudiant(e) 1 : [à renseigner]
-Étudiant(e) 2 : [à renseigner]
-Lien GitHub : [à renseigner après publication]
+Étudiant(e) 1 : Mohamed Salmane SHAME
+Étudiant(e) 2 : SIFFEDINE Youssra
+Lien GitHub : à compléter après publication
 
-Le projet permet de référencer des articles et d'enregistrer les entrées et sorties de stock. Le stock disponible correspond à la somme des entrées moins la somme des sorties. Les formulaires sont validés par le serveur et les données sont enregistrées dans MySQL.
+Le projet permet de référencer des articles et d'enregistrer les entrées et sorties de stock. Le stock disponible correspond à la somme des entrées moins la somme des sorties. Les formulaires sont validés côté serveur et les données sont enregistrées dans MySQL.
+
+Le dépôt contient le code Java, les pages HTML, CSS/JavaScript, `pom.xml`, Maven Wrapper, l'export SQL et trois captures d'écran.
 
 Technologies : Java 21, Spring Boot, Spring Data JPA, Thymeleaf, Lombok et MySQL.
 
-Pour lancer sous Windows, configurez d'abord la base MySQL et la variable d'environnement STOCKIMS_DB_PASSWORD, puis exécutez `mvnw.cmd spring-boot:run` depuis le dossier du projet.
+Pour lancer sous Windows, configurez la base MySQL et la variable `STOCKIMS_DB_PASSWORD`, puis exécutez :
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```

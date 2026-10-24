@@ -62,12 +62,18 @@ public class StockService {
 
 	@Transactional
 	public void entrer(Long id, int quantite) {
+		if (quantite <= 0) {
+			throw new IllegalArgumentException("La quantité doit être supérieure ou égale à 1.");
+		}
 		Article article = verrouiller(id);
 		entrees.save(new Entree(article, quantite, LocalDate.now()));
 	}
 
 	@Transactional
 	public void sortir(Long id, int quantite) {
+		if (quantite <= 0) {
+			throw new IllegalArgumentException("La quantité doit être supérieure ou égale à 1.");
+		}
 		Article article = verrouiller(id);
 		long stock = calculerStock(id);
 		if (quantite > stock) {
