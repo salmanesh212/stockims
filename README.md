@@ -83,6 +83,5 @@ Commande :
 - [02-fiche-stock.png](docs/captures/02-fiche-stock.png) — fiche avec stock égal à 13.
 - [03-stock-insuffisant.png](docs/captures/03-stock-insuffisant.png) — message de validation après tentative de sortie de 15.
 
-## Dépôt GitHub
 
-Dépôt prévu : `stockims`. Après publication, inviter le compte GitHub `amozher` (mozher.abdeslam@gmail.com) depuis **Settings → Collaborators → Add people**.
+
