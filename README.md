@@ -57,7 +57,15 @@ L'application est disponible sur <http://localhost:8080/>.
 
 ## Personnalisation réalisée
 
-Le layout Thymeleaf partagé se trouve dans `src/main/resources/templates/fragments/layout.html`. La feuille [style.css](src/main/resources/static/css/style.css) apporte une identité visuelle indigo/cyan, une navigation latérale en dégradé, des cartes avec ombres douces, des boutons d'action distincts pour les entrées et sorties, ainsi qu'un affichage responsive. Le fichier `app.js` gère la recherche, le menu mobile et la confirmation des sorties.
+**OBSIDIENNE** est un tableau de bord sombre, calme et précis : le fond noir bleuté réduit la fatigue visuelle, les surfaces en niveaux donnent la profondeur sans glassmorphism et l'émeraude signale les actions positives. Le rose est réservé aux sorties et erreurs, le bleu ciel aux repères informatifs ; ces couleurs restent lisibles sur leurs surfaces dédiées.
+
+- **Palette et composants** : `#0B0D10`, `#12161B`, `#181D24`, `#232A33` et `#E8ECF1`, avec un unique halo émeraude discret. Les cartes ont un rayon de 12 px, les contrôles 8 px, une bordure de 1 px et un filet interne.
+- **Typographies** : Inter auto-hébergée dans `static/fonts` pour l'interface, JetBrains Mono pour références, quantités et KPI avec chiffres tabulaires. Les fallbacks système garantissent un rendu même si une police est indisponible.
+- **HTML/Thymeleaf** : navigation limitée à Accueil / Articles / Nouvel article, icônes SVG Lucide dans `fragments/icons.html`, KPI calculées dans la vue depuis `stocks`, tableau transformé en cartes via `data-label` sous 560 px. Les liaisons Thymeleaf existantes sont conservées.
+- **CSS** : focus-visible en anneau émeraude, états hover/disabled/erreur/succès, grille bento d'accueil et responsive vérifié pour 360, 768 et 1440 px. `prefers-reduced-motion` désactive les transitions et le comptage animé.
+- **JavaScript progressif** : recherche, raccourci `/`, tiroir mobile, confirmation `<dialog>` avec fallback `confirm()`, toast de succès après 4 secondes, bascule clair/sombre mémorisée dans `localStorage` et animation de comptage qui termine sur la valeur serveur. Sans JS, les formulaires et messages restent utilisables.
+
+Les éléments supplémentaires hors guide sont la bascule de thème, le raccourci `/` et l'animation de comptage ; ils n'altèrent aucune règle métier.
 
 ## Vérifications
 
@@ -79,9 +87,11 @@ Commande :
 
 ## Captures d'écran
 
-- [01-articles.png](docs/captures/01-articles.png) — interface personnalisée et stocks calculés.
-- [02-fiche-stock.png](docs/captures/02-fiche-stock.png) — fiche avec stock égal à 13.
-- [03-stock-insuffisant.png](docs/captures/03-stock-insuffisant.png) — message de validation après tentative de sortie de 15.
+- [01-articles.png](docs/captures/01-articles.png) — KPI et liste des trois articles.
+- [02-fiche-stock.png](docs/captures/02-fiche-stock.png) — fiche DEMO-001 avec stock égal à 13.
+- [03-stock-insuffisant.png](docs/captures/03-stock-insuffisant.png) — refus d'une sortie de 15, stock conservé à 13.
+
+Les captures sont réalisées en 1440 × 900 avec le thème sombre. Pour vérifier la persistance : ajouter une entrée ou une sortie, arrêter l'application, la relancer, puis rouvrir la fiche ; le stock doit rester identique.
 
 
 

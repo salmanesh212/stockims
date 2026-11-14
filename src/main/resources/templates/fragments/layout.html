@@ -2,7 +2,7 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head(title)">
         <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#142B4A">
+        <meta name="theme-color" content="#0B0D10">
         <title th:text="|StockIMS · ${title}|">StockIMS</title>
         <link rel="stylesheet" th:href="@{/css/style.css}">
         <script th:src="@{/js/app.js}" defer></script>
@@ -11,21 +11,27 @@
 <div th:fragment="shell(title, active, content)" class="app-shell">
     <div class="mobile-scrim" data-menu-close></div>
     <aside class="sidebar" id="main-sidebar">
-        <a class="brand" th:href="@{/}" aria-label="StockIMS, accueil"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span><strong>StockIMS</strong><small>GESTION DE STOCK</small></span></a>
+        <a class="brand" th:href="@{/}" aria-label="StockIMS, accueil"><span class="brand-mark" aria-hidden="true">S</span><span><strong>StockIMS</strong><small>OBSIDIENNE</small></span></a>
         <div class="nav-label">ESPACE DE TRAVAIL</div>
         <nav class="side-nav" aria-label="Navigation principale">
-            <a th:href="@{/}" th:classappend="${active == 'accueil'} ? ' active' : ''"><span class="nav-icon">⌂</span><span>Accueil</span></a>
-            <a th:href="@{/articles}" th:classappend="${active == 'articles'} ? ' active' : ''"><span class="nav-icon">▦</span><span>Articles</span></a>
-            <a th:href="@{/articles}" th:classappend="${active == 'stock'} ? ' active' : ''"><span class="nav-icon">↕</span><span>Gestion du stock</span></a>
+            <a th:href="@{/}" th:classappend="${active == 'accueil'} ? ' active' : ''"><span class="nav-icon" th:replace="~{fragments/icons :: icon('home')}"></span><span>Accueil</span></a>
+            <a th:href="@{/articles}" th:classappend="${active == 'articles' or active == 'stock'} ? ' active' : ''"><span class="nav-icon" th:replace="~{fragments/icons :: icon('articles')}"></span><span>Articles</span></a>
         </nav>
-        <a class="sidebar-cta" th:href="@{/articles/nouveau}"><span>＋</span> Nouvel article</a>
+        <a class="sidebar-cta" th:href="@{/articles/nouveau}"><span th:replace="~{fragments/icons :: icon('plus')}"></span> Nouvel article</a>
         <div class="sidebar-footer"><span class="footer-mark">S</span><span><strong>StockIMS</strong><small>Application de gestion</small></span></div>
     </aside>
     <div class="app-main">
-        <header class="topbar"><button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-sidebar" data-menu-toggle><span></span><span></span><span></span></button><div class="topbar-title"><span class="topbar-kicker">STOCKIMS</span><span th:text="${title}">Page</span></div><a class="topbar-action" th:href="@{/articles}"><span aria-hidden="true">▦</span><span>Inventaire</span></a></header>
+        <header class="topbar"><button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="main-sidebar" data-menu-toggle><span></span><span></span><span></span></button><div class="topbar-title"><span class="topbar-kicker">STOCKIMS</span><span th:text="${title}">Page</span></div><div class="topbar-actions"><button class="theme-toggle" type="button" data-theme-toggle aria-label="Activer le thème clair"><span th:replace="~{fragments/icons :: icon('sun')}"></span><span>Thème</span></button><a class="topbar-action" th:href="@{/articles}"><span th:replace="~{fragments/icons :: icon('articles')}"></span><span>Articles</span></a></div></header>
         <main class="main-content" th:replace="${content}"></main>
         <footer class="app-footer"><span>StockIMS · Gestion de stock</span><span>Suivi simple, inventaire maîtrisé.</span></footer>
     </div>
+    <dialog id="sortie-dialog" class="confirm-dialog">
+        <form method="dialog">
+            <h2>Confirmer la sortie</h2>
+            <p data-dialog-message></p>
+            <div class="form-actions"><button class="button button-quiet" value="cancel">Annuler</button><button class="button button-exit" value="confirm">Confirmer</button></div>
+        </form>
+    </dialog>
 </div>
 </body>
 </html>

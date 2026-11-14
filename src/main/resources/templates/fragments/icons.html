@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<body>
+<span th:fragment="icon(name)" aria-hidden="true">
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'home'}"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'articles'}"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'plus'}"><path d="M12 5v14M5 12h14"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'minus'}"><path d="M5 12h14"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'search'}"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'arrow'}"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'check'}"><path d="m5 12 4 4L19 6"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" th:if="${name == 'sun'}"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</span>
+</body>
+</html>

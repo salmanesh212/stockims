@@ -1,9 +1,9 @@
-# Captures d'écran de la remise
+# Captures d'écran OBSIDIENNE
 
-Les captures ont été réalisées depuis l'interface StockIMS personnalisée :
+Captures Playwright en 1440 × 900, page complète, thème sombre :
 
-1. `01-articles.png` — liste des articles de test avec leurs stocks calculés.
-2. `02-fiche-stock.png` — fiche de `DEMO-001` affichant le stock disponible égal à 13.
-3. `03-stock-insuffisant.png` — message de validation après une tentative de sortie de 15 ; le stock reste égal à 13.
+1. `01-articles.png` — KPI et exactement trois articles (13, 0, 0).
+2. `02-fiche-stock.png` — fiche DEMO-001 et stock disponible de 13.
+3. `03-stock-insuffisant.png` — sortie de 15 refusée, alerte rose visible et entrée vide.
 
-Elles ont été produites avec l'application lancée sur `http://localhost:8080/`.
+Les données proviennent de `database/stockims_test_data.sql`. L'application était accessible sur `http://localhost:8080/`.
